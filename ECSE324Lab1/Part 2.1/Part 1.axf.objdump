@@ -1,0 +1,56 @@
+
+//campus.mcgill.ca/emf/CPE/yjing4/Desktop/ECSE324 Lab1/Part 1.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f4078 	ldr	r4, [pc, #120]	; 80 <NUMBERS+0x1c>
+   4:	e5942004 	ldr	r2, [r4, #4]
+   8:	e2843008 	add	r3, r4, #8
+   c:	e5930000 	ldr	r0, [r3]
+  10:	e5935000 	ldr	r5, [r3]
+
+00000014 <LOOP>:
+  14:	e2522001 	subs	r2, r2, #1
+  18:	0a00000b 	beq	4c <DONE>
+  1c:	e2833004 	add	r3, r3, #4
+  20:	e5931000 	ldr	r1, [r3]
+  24:	e5936000 	ldr	r6, [r3]
+  28:	e1500001 	cmp	r0, r1
+  2c:	da000002 	ble	3c <Maximum>
+  30:	e1550006 	cmp	r5, r6
+  34:	aa000002 	bge	44 <Minimum>
+  38:	eafffff5 	b	14 <LOOP>
+
+0000003c <Maximum>:
+  3c:	e1a00001 	mov	r0, r1
+  40:	eafffff3 	b	14 <LOOP>
+
+00000044 <Minimum>:
+  44:	e1a05006 	mov	r5, r6
+  48:	eafffff1 	b	14 <LOOP>
+
+0000004c <DONE>:
+  4c:	e0500005 	subs	r0, r0, r5
+  50:	e1a00120 	lsr	r0, r0, #2
+  54:	e5840000 	str	r0, [r4]
+
+00000058 <END>:
+  58:	eafffffe 	b	58 <END>
+
+0000005c <RESULT>:
+  5c:	00000000 	.word	0x00000000
+
+00000060 <N>:
+  60:	00000007 	.word	0x00000007
+
+00000064 <NUMBERS>:
+  64:	00000004 	.word	0x00000004
+  68:	00000005 	.word	0x00000005
+  6c:	00000003 	.word	0x00000003
+  70:	00000006 	.word	0x00000006
+  74:	00000001 	.word	0x00000001
+  78:	00000008 	.word	0x00000008
+  7c:	00000002 	.word	0x00000002
+  80:	0000005c 	.word	0x0000005c

@@ -1,0 +1,131 @@
+
+//campus.mcgill.ca/emf/CPE/yjing4/Desktop/ECSE324 Lab1/Part 2.2/bubblesort.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+			.text
+			.global _start
+_start:
+
+		LDR R2, =N
+   0:	e59f20ac 	ldr	r2, [pc, #172]	; b4 <NUMBERS+0x20>
+		LDR R1, [R2]		// R1 = NUMBER OF ELEMENT
+   4:	e5921000 	ldr	r1, [r2]
+		ADD R0, R2, #4		// R0 POINTS TO THE FIRST LOCATION
+   8:	e2820004 	add	r0, r2, #4
+		MOV R4, R0		// CURRENT POINTER
+   c:	e1a04000 	mov	r4, r0
+		MOV R5, R1
+  10:	e1a05001 	mov	r5, r1
+
+00000014 <WHILE>:
+WHILE: 
+		//MOV R6, #0		// BOOLEAN SORTED = FALSE
+		CMP R6, #0
+  14:	e3560000 	cmp	r6, #0
+		BEQ LOOPSTART
+  18:	0affffff 	beq	1c <LOOPSTART>
+
+0000001c <LOOPSTART>:
+
+LOOPSTART: 
+
+		CMP R1, #1
+  1c:	e3510001 	cmp	r1, #1
+		BLE END			// IF R1<=1, END
+  20:	da000018 	ble	88 <END>
+
+
+		SUB R5, R5, #1		// N-1 COMPARISON LAST ONE DOESN’T NEED
+  24:	e2455001 	sub	r5, r5, #1
+		CMP R5, #0
+  28:	e3550000 	cmp	r5, #0
+		BEQ ENDINNER		// IF R5=0, END INNER LOOP AND START A NEW LOOP
+  2c:	0a00000f 	beq	70 <ENDINNER>
+
+		//MOV R6, #1		// BOOLEAN SORTED = TRUE
+
+		LDR R7, [R4]		// FIRST ELE
+  30:	e5947000 	ldr	r7, [r4]
+		LDR R8, [R4, #4]	// SECOND ELE
+  34:	e5948004 	ldr	r8, [r4, #4]
+		CMP R7, R8
+  38:	e1570008 	cmp	r7, r8
+		BLE NOSWAP		// IF R7<=R8 NO NEED TO SWAP, BEGIN NEW INNER LOOP
+  3c:	da000007 	ble	60 <NOSWAP>
+
+	
+
+		
+		LDR R7, [R4]		// FIRST ELE
+  40:	e5947000 	ldr	r7, [r4]
+		MOV R3, R7
+  44:	e1a03007 	mov	r3, r7
+		LDR R8, [R4, #4]	// SECOND ELE
+  48:	e5948004 	ldr	r8, [r4, #4]
+		STR R8, [R4]
+  4c:	e5848000 	str	r8, [r4]
+		STR R3, [R4, #4]
+  50:	e5843004 	str	r3, [r4, #4]
+		ADD R4, R4, #4
+  54:	e2844004 	add	r4, r4, #4
+		MOV R6, #0
+  58:	e3a06000 	mov	r6, #0
+		B LOOPSTART
+  5c:	eaffffee 	b	1c <LOOPSTART>
+
+00000060 <NOSWAP>:
+
+NOSWAP:		
+		
+		STR R7, [R4]
+  60:	e5847000 	str	r7, [r4]
+		STR R8, [R4, #4]
+  64:	e5848004 	str	r8, [r4, #4]
+		ADD R4, R4, #4		// POINTER TO NEXT ELE
+  68:	e2844004 	add	r4, r4, #4
+		B LOOPSTART		// RESET LOOP
+  6c:	eaffffea 	b	1c <LOOPSTART>
+
+00000070 <ENDINNER>:
+
+ENDINNER:
+ 		//CMP R6, #0		// CHECK BOOLEAN
+		//BEQ END			// LEAVE	
+		LDR R5, [R2]	
+  70:	e5925000 	ldr	r5, [r2]
+		MOV R4, R0		// RESET POINTER
+  74:	e1a04000 	mov	r4, r0
+		SUB R1, R1, #1		// RESET COUNTER
+  78:	e2411001 	sub	r1, r1, #1
+		CMP R1, #1
+  7c:	e3510001 	cmp	r1, #1
+		BLE END			// IF R1<=1, END
+  80:	da000000 	ble	88 <END>
+		
+		B LOOPSTART		// NEW ITERATION
+  84:	eaffffe4 	b	1c <LOOPSTART>
+
+00000088 <END>:
+
+END: 		B END
+  88:	eafffffe 	b	88 <END>
+
+0000008c <RESULT>:
+  8c:	00000000 	.word	0x00000000
+
+00000090 <N>:
+  90:	00000008 	.word	0x00000008
+
+00000094 <NUMBERS>:
+  94:	00000004 	.word	0x00000004
+  98:	00000005 	.word	0x00000005
+  9c:	00000003 	.word	0x00000003
+  a0:	00000006 	.word	0x00000006
+  a4:	00000001 	.word	0x00000001
+  a8:	00000008 	.word	0x00000008
+  ac:	00000002 	.word	0x00000002
+  b0:	00000007 	.word	0x00000007
+  b4:	00000090 	.word	0x00000090
